@@ -4,66 +4,66 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import com.method.FileOpreation.AES;
-import com.method.FileOpreation.FileRestore;
+import com.method.FileOperation.AES;
+import com.method.FileOperation.FileRestore;
 import com.method.PictureOpreation.ReadPicture;
 
 public class ExtractProcess {
-	
-	
-	public ExtractProcess(String picturePath,String pictureDirectory,String password){
-		
-		ReadPicture readpicture = new ReadPicture(picturePath,pictureDirectory);
-		
-		int[] picturelist = readpicture.getPicturelist();//»ñµÃÇ¶ÈëÎÄ¼şÍ¼Æ¬µÄÁ´Ê½½á¹¹
-		
-		FileRestore filerestore = new FileRestore(picturelist);//ÎÄ¼ş´ÓÍ¼Æ¬ÖĞ»¹Ô­
-		
-		byte[] file_enbytearray = filerestore.getFile_enbytearray();//»ñÈ¡¼ÓÃÜÎÄ¼şµÄbyteÊı×é
-		
-		AES aes = new AES();
-		
-		byte[] file_bytearray = aes.Decrypt(file_enbytearray, password);
-		
-		String file_extensions = filerestore.getFile_extensions();
-		
-		getFile(file_bytearray,pictureDirectory,("Extract_File."+file_extensions));
-	
-	}
-	
-	public void getFile(byte[] bfile, String filePath,String fileName) {//ÎÄ¼şµÄĞ´Èë
-        BufferedOutputStream bos = null;  
-        FileOutputStream fos = null;  
-        File file = null;  
-        try {  
-            File dir = new File(filePath);  
-            if(!dir.exists()&&dir.isDirectory()){//ÅĞ¶ÏÎÄ¼şÄ¿Â¼ÊÇ·ñ´æÔÚ  
-                dir.mkdirs();  
-            }  
-            file = new File(filePath+"\\"+fileName);  
-            fos = new FileOutputStream(file);  
-            bos = new BufferedOutputStream(fos);  
-            bos.write(bfile);  
-        } catch (Exception e) {  
-            e.printStackTrace();  
-        } finally {  
-            if (bos != null) {  
-                try {  
-                    bos.close();  
-                } catch (IOException e1) {  
-                    e1.printStackTrace();  
-                }  
-            }  
-            if (fos != null) {  
-                try {  
-                    fos.close();  
-                } catch (IOException e1) {  
-                    e1.printStackTrace();  
-                }  
-            }  
-        }  
-	}
 
-	
-	
+
+    public ExtractProcess(String picturePath,String pictureDirectory,String password){
+
+        ReadPicture readpicture = new ReadPicture(picturePath,pictureDirectory);
+
+        int[] picturelist = readpicture.getPicturelist();//è·å¾—åµŒå…¥æ–‡ä»¶å›¾ç‰‡çš„é“¾å¼ç»“æ„
+
+        FileRestore filerestore = new FileRestore(picturelist);//æ–‡ä»¶ä»å›¾ç‰‡ä¸­è¿˜åŸ
+
+        byte[] file_enbytearray = filerestore.getFile_enbytearray();//è·å–åŠ å¯†æ–‡ä»¶çš„byteæ•°ç»„
+
+        AES aes = new AES();
+
+        byte[] file_bytearray = aes.Decrypt(file_enbytearray, password);
+
+        String file_extensions = filerestore.getFile_extensions();
+
+        getFile(file_bytearray,pictureDirectory,("Extract_File."+file_extensions));
+
+    }
+
+    public void getFile(byte[] bfile, String filePath,String fileName) {//æ–‡ä»¶çš„å†™å…¥
+        BufferedOutputStream bos = null;
+        FileOutputStream fos = null;
+        File file = null;
+        try {
+            File dir = new File(filePath);
+            if(!dir.exists()&&dir.isDirectory()){//åˆ¤æ–­æ–‡ä»¶ç›®å½•æ˜¯å¦å­˜åœ¨
+                dir.mkdirs();
+            }
+            file = new File(filePath+"\\"+fileName);
+            fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
+            bos.write(bfile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bos != null) {
+                try {
+                    bos.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
 }

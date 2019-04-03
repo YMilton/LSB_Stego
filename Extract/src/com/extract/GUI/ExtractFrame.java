@@ -9,24 +9,24 @@ import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 
 import com.extract.Process.ExtractProcess;
-import com.method.FileOpreation.AES;
-import com.method.FileOpreation.FileRestore;
+import com.method.FileOperation.AES;
+import com.method.FileOperation.FileRestore;
 import com.method.PictureOpreation.ReadPicture;
 
 public class ExtractFrame extends MyFrame {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private ChImageFrame cf;
-	
+
 	private String pictureDirectory,picturePath;
-	
+
 	public ExtractFrame(){
 		jb.addMouseListener(new MouseListener(){
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				cf = new ChImageFrame("ÔØÃÜÍ¼ÏñÎÄ¼şÑ¡Ôñ´°¿Ú");
+				cf = new ChImageFrame("è½½å¯†å›¾åƒæ–‡ä»¶é€‰æ‹©çª—å£");
 				picturePath = cf.getFilePath();
 				pictureDirectory = cf.getFileDirectory();
 				if(picturePath!=null){
@@ -46,58 +46,58 @@ public class ExtractFrame extends MyFrame {
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub			
+				// TODO Auto-generated method stub
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 			}
-			
+
 		});
-		
+
 		jbok.addActionListener(new ActionListener(){
 			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(picturePath==null){
-					JOptionPane.showMessageDialog(null, "ÇëÑ¡ÔñÔØÃÜÍ¼Ïñ£¡");
+					JOptionPane.showMessageDialog(null, "è¯·é€‰æ‹©è½½å¯†å›¾åƒï¼");
 				}else if(jpf.getText().length()==0){
-					JOptionPane.showMessageDialog(null, "ÇëÊäÈëÄúµÄÃÜÂë£¡");
+					JOptionPane.showMessageDialog(null, "è¯·è¾“å…¥æ‚¨çš„å¯†ç ï¼");
 				}else{
-					String password = jpf.getText();					
-					
-					//»ñÈ¡Òì³£
+					String password = jpf.getText();
+
+					//è·å–å¼‚å¸¸
 					ReadPicture readpicture = new ReadPicture(picturePath,pictureDirectory);
-					
-					int[] picturelist = readpicture.getPicturelist();//»ñµÃÇ¶ÈëÎÄ¼şÍ¼Æ¬µÄÁ´Ê½½á¹¹
-					
-					FileRestore filerestore = new FileRestore(picturelist);//ÎÄ¼ş´ÓÍ¼Æ¬ÖĞ»¹Ô­
-					
-					byte[] file_enbytearray = filerestore.getFile_enbytearray();//»ñÈ¡¼ÓÃÜÎÄ¼şµÄbyteÊı×é
-					
+
+					int[] picturelist = readpicture.getPicturelist();//è·å¾—åµŒå…¥æ–‡ä»¶å›¾ç‰‡çš„é“¾å¼ç»“æ„
+
+					FileRestore filerestore = new FileRestore(picturelist);//æ–‡ä»¶ä»å›¾ç‰‡ä¸­è¿˜åŸ
+
+					byte[] file_enbytearray = filerestore.getFile_enbytearray();//è·å–åŠ å¯†æ–‡ä»¶çš„byteæ•°ç»„
+
 					AES aes = new AES();
-					
-					aes.Decrypt(file_enbytearray, password);//ÊÔ×ÅÆÆ½â£¬»ñÈ¡Òì³££¬¸³Öµflag
-					//»ñÈ¡Òì³£
-				
-					
+
+					aes.Decrypt(file_enbytearray, password);//è¯•ç€ç ´è§£ï¼Œè·å–å¼‚å¸¸ï¼Œèµ‹å€¼flag
+					//è·å–å¼‚å¸¸
+
+
 					if(aes.isFlag())	{
-						JOptionPane.showMessageDialog(null, "ÃÜÂë´íÎó£¬ÎÄ¼ş²»ÄÜÌáÈ¡£¡");
+						JOptionPane.showMessageDialog(null, "å¯†ç é”™è¯¯ï¼Œæ–‡ä»¶ä¸èƒ½æå–ï¼");
 						System.exit(0);
 					}else{
 						new ExtractProcess(picturePath,pictureDirectory,password);
-						JOptionPane.showMessageDialog(null, "ÎÄ¼şÌáÈ¡³É¹¦£¡");
+						JOptionPane.showMessageDialog(null, "æ–‡ä»¶æå–æˆåŠŸï¼");
 						System.exit(0);
 					}
-					
-				}			
-					
+
+				}
+
 			}
 		});
-		
-		this.setTitle("ÎÄ¼şÌáÈ¡");
-		
+
+		this.setTitle("æ–‡ä»¶æå–");
+
 	}
 
 }

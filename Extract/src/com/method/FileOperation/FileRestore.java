@@ -1,34 +1,34 @@
-package com.method.FileOpreation;
+package com.method.FileOperation;
 
-/*ÎÄ¼şµÄ¸´Ô­·½·¨Àà*/
-public class FileRestore { 
+/*æ–‡ä»¶çš„å¤åŸæ–¹æ³•ç±»*/
+public class FileRestore {
 	private String file_extensions;
-	
+
 	private byte[] file_enbytearray;
-	
+
 	public FileRestore(int[] picturelist){
-		int[] binary_file_length = getBinary(cutArray(picturelist,0,31));//¼ÓÃÜÎÄ¼ş¶ş½øÖÆÁ÷³¤¶ÈµÄ»ñµÃ
-		
-		int[] binary_extensions_list = getBinary(cutArray(picturelist,32,111));//ÎÄ¼şºó×ºÃû¶ş½øÖÆÁ÷µÄ»ñµÃ
-		
-		int encrypt_file_length = getEncryptFileLength(binary_file_length);//³¤¶È¶ş½øÖÆ×ª»»³Éint
-		
-		int[] binary_file_list = getBinary(cutArray(picturelist,112,112+encrypt_file_length-1));//¼ÓÃÜÎÄ¼ş¶ş½øÖÆÁ÷»ñµÃ
-		
+		int[] binary_file_length = getBinary(cutArray(picturelist,0,31));//åŠ å¯†æ–‡ä»¶äºŒè¿›åˆ¶æµé•¿åº¦çš„è·å¾—
+
+		int[] binary_extensions_list = getBinary(cutArray(picturelist,32,111));//æ–‡ä»¶åç¼€åäºŒè¿›åˆ¶æµçš„è·å¾—
+
+		int encrypt_file_length = getEncryptFileLength(binary_file_length);//é•¿åº¦äºŒè¿›åˆ¶è½¬æ¢æˆint
+
+		int[] binary_file_list = getBinary(cutArray(picturelist,112,112+encrypt_file_length-1));//åŠ å¯†æ–‡ä»¶äºŒè¿›åˆ¶æµè·å¾—
+
 //		System.out.println(binary_file_list.length);
-//		
+//
 //		for(int i=0; i<100; i++){
 //			System.out.print(binary_file_list[i]+"  ");
 //		}
 //		System.out.println();
-		
-		this.file_extensions = getFileExtensions(binary_extensions_list);//ÎÄ¼şµÄºó×ºÃû
-		
-		this.file_enbytearray = 	getByteArray(binary_file_list);//¼ÓÃÜÎÄ¼şbytes
-		
+
+		this.file_extensions = getFileExtensions(binary_extensions_list);//æ–‡ä»¶çš„åç¼€å
+
+		this.file_enbytearray = 	getByteArray(binary_file_list);//åŠ å¯†æ–‡ä»¶bytes
+
 	}
-	
-	
+
+
 	public String getFile_extensions() {
 		return file_extensions;
 	}
@@ -39,29 +39,29 @@ public class FileRestore {
 	}
 
 
-	/*»ñÈ¡Êı×éµÄ·½·¨£¬beginÊÇ»ñÈ¡Êı×éµÄÆğÊ¼Î»ÖÃ£¬endÊÇ»ñÈ¡Êı×éµÄ½áÊøÎ»ÖÃ*/
+	/*è·å–æ•°ç»„çš„æ–¹æ³•ï¼Œbeginæ˜¯è·å–æ•°ç»„çš„èµ·å§‹ä½ç½®ï¼Œendæ˜¯è·å–æ•°ç»„çš„ç»“æŸä½ç½®*/
 	public int[] cutArray(int[] binary_list, int begin, int end){
 		int[] cutarray = new int[end-begin+1];
-		
+
 		for(int i=begin; i<=end; i++){
 			cutarray[i-begin] = binary_list[i];
 		}
-		
+
 		return cutarray;
 	}
-	
-	/*¶ÔbyteÊı×éµÄcut*/
+
+	/*å¯¹byteæ•°ç»„çš„cut*/
 	public byte[] cutArray(byte[] binary_list, int begin, int end){
 		byte[] cutarray = new byte[end-begin+1];
-		
+
 		for(int i=begin; i<=end; i++){
 			cutarray[i-begin] = binary_list[i];
 		}
-		
+
 		return cutarray;
 	}
-	
-	/*´Ó¶ş½øÖÆÊı×éÖĞ»ñÈ¡ÎÄ¼şµÄ³¤¶ÈµÄ·½·¨*/
+
+	/*ä»äºŒè¿›åˆ¶æ•°ç»„ä¸­è·å–æ–‡ä»¶çš„é•¿åº¦çš„æ–¹æ³•*/
 	public int getEncryptFileLength(int[] binary_length_list){
 		int tmp = 0;
 		int length=0;
@@ -73,38 +73,38 @@ public class FileRestore {
 		}else{
 			length=-((int)Math.pow(2, 32) - tmp);
 		}
-		
+
 		return length;
 	}
 
 
-	/*¶ş½øÖÆÊı×é×ª»»³ÉbyteÕûĞÍÊı¾İµÄ·½·¨*/
+	/*äºŒè¿›åˆ¶æ•°ç»„è½¬æ¢æˆbyteæ•´å‹æ•°æ®çš„æ–¹æ³•*/
 	public byte BinarytoByte(int[] arr){
 		byte num=0;
 		int tmp=arr[1]*64+arr[2]*32+arr[3]*16+arr[4]*8+arr[5]*4+arr[6]*2+arr[7];
 		if(arr[0]==0){
 			num=(byte)tmp;
 		}else{
-			num=(byte)-(128-tmp);//¸ºÊıÊıÒÔ²¹ÂëµÄĞÎÊ½´æÔÚµÄ
+			num=(byte)-(128-tmp);//è´Ÿæ•°æ•°ä»¥è¡¥ç çš„å½¢å¼å­˜åœ¨çš„
 		}
 		return num;
 	}
-	
-	/*´Ó¶ş½øÖÆÊı×ÖÁ´ÖĞ»ñÈ¡byteÊı×éµÄ·½·¨*/
+
+	/*ä»äºŒè¿›åˆ¶æ•°å­—é“¾ä¸­è·å–byteæ•°ç»„çš„æ–¹æ³•*/
 	public byte[] getByteArray(int[] binarylist){
 		int num = binarylist.length/8;
-		
+
 		byte[] arrbyte = new byte[num];
-		
+
 		for(int i=0; i<num; i++){
 			int[] templist = cutArray(binarylist, i*8,(i+1)*8-1);
 			arrbyte[i] = BinarytoByte(templist);
 		}
-		
+
 		return arrbyte;
 	}
-	
-	/*´Ó¶ş½øÖÆÖĞ»ñÈ¡ÎÄ¼şµÄºó×ºÃû*/
+
+	/*ä»äºŒè¿›åˆ¶ä¸­è·å–æ–‡ä»¶çš„åç¼€å*/
 	public String getFileExtensions(int[] binarylist){
 		byte[] bytes = getByteArray(binarylist);
 		int k=0;
@@ -114,16 +114,16 @@ public class FileRestore {
 			}
 		}
 		byte[] arrbytes=cutArray(bytes,0,k-1);
-		
-       String name = new String(arrbytes);
-       
-        return name;
+
+		String name = new String(arrbytes);
+
+		return name;
 	}
-	
-	/*ÅĞ¶ÏÊı¾İµÄÆæÅ¼ĞÔµÄ·½·¨*/
+
+	/*åˆ¤æ–­æ•°æ®çš„å¥‡å¶æ€§çš„æ–¹æ³•*/
 	public int Parity(int data){
 		int result;
-		
+
 		if(data%2==0){
 			result=0;
 		}else{
@@ -131,15 +131,15 @@ public class FileRestore {
 		}
 		return result;
 	}
-	
+
 	public int[] getBinary(int[] partlist){
 		int[] binarylist = new int[partlist.length];
-		
+
 		for(int i=0; i<partlist.length; i++){
 			binarylist[i] = Parity(partlist[i]);
 		}
-		
+
 		return binarylist;
 	}
-	
+
 }
