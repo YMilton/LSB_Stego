@@ -44,7 +44,6 @@ public class EmbedFrame extends MyFrame {
 
             }
 
-
             @Override
             public void mouseEntered(MouseEvent arg0) {
                 jb1.setForeground(Color.ORANGE);
