@@ -12,70 +12,70 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-/*ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½*/
+/*ÎÄ¼þ¼ÓÃÜ·½·¨Àà*/
 public class AES {
-	
-	/** 
-	 * ï¿½ï¿½ï¿½ï¿½ 
-	 *  
-	 * @param content ï¿½ï¿½Òªï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ 
-	 * @param password  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
-	 * @return 
-	 */  
-	public byte[] Encrypt(byte[] byteContent, String password) {  
-	        try {             
-	                KeyGenerator kgen = KeyGenerator.getInstance("AES");  
-	                kgen.init(128, new SecureRandom(password.getBytes()));  
-	                SecretKey secretKey = kgen.generateKey();  
-	                byte[] enCodeFormat = secretKey.getEncoded();  
-	                SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");  
-	                Cipher cipher = Cipher.getInstance("AES");// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
-	                cipher.init(Cipher.ENCRYPT_MODE, key);// ï¿½ï¿½Ê¼ï¿½ï¿½  
-	                byte[] result = cipher.doFinal(byteContent);  
-	                return result; // ï¿½ï¿½ï¿½ï¿½  
-	        } catch (NoSuchAlgorithmException e) {  
-	                e.printStackTrace();  
-	        } catch (NoSuchPaddingException e) {  
-	                e.printStackTrace();  
-	        } catch (InvalidKeyException e) {  
-	                e.printStackTrace();  
-	        } catch (IllegalBlockSizeException e) {  
-	                e.printStackTrace();  
-	        } catch (BadPaddingException e) {  
-	                e.printStackTrace();  
-	        }  
-	        return null;  
-	}  
-	
-	
-	/**ï¿½ï¿½ï¿½ï¿½ 
-	 * @param content  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
-	 * @param password ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ 
-	 * @return 
-	 */  
-	public byte[] Decrypt(byte[] content, String password) {  
-	        try {  
-	                 KeyGenerator kgen = KeyGenerator.getInstance("AES");  
-	                 kgen.init(128, new SecureRandom(password.getBytes()));  
-	                 SecretKey secretKey = kgen.generateKey();  
-	                 byte[] enCodeFormat = secretKey.getEncoded();  
-	                 SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");              
-	                 Cipher cipher = Cipher.getInstance("AES");// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
-	                cipher.init(Cipher.DECRYPT_MODE, key);// ï¿½ï¿½Ê¼ï¿½ï¿½  
-	                byte[] result = cipher.doFinal(content);  
-	                return result; // ï¿½ï¿½ï¿½ï¿½  
-	        } catch (NoSuchAlgorithmException e) {  
-	                e.printStackTrace();  
-	        } catch (NoSuchPaddingException e) {  
-	                e.printStackTrace();  
-	        } catch (InvalidKeyException e) {  
-	                e.printStackTrace();  
-	        } catch (IllegalBlockSizeException e) {  
-	                e.printStackTrace();  
-	        } catch (BadPaddingException e) {  
-	                e.printStackTrace();  
-	        }  
-	        return null;  
-	}  
 
+	/**
+	 * ¼ÓÃÜ
+	 *
+	 * @param content ÐèÒª¼ÓÃÜµÄÄÚÈÝ
+	 * @param password  ¼ÓÃÜÃÜÂë
+	 * @return
+	 */
+	public byte[] Encrypt(byte[] byteContent, String password) {
+		try {
+			KeyGenerator kgen = KeyGenerator.getInstance("AES");
+			kgen.init(128, new SecureRandom(password.getBytes()));
+			SecretKey secretKey = kgen.generateKey();
+			byte[] enCodeFormat = secretKey.getEncoded();
+			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
+			Cipher cipher = Cipher.getInstance("AES");// ´´½¨ÃÜÂëÆ÷
+			cipher.init(Cipher.ENCRYPT_MODE, key);// ³õÊ¼»¯
+			byte[] result = cipher.doFinal(byteContent);
+			return result; // ¼ÓÃÜ
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			e.printStackTrace();
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		} catch (IllegalBlockSizeException e) {
+			e.printStackTrace();
+		} catch (BadPaddingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
+
+
+	/**½âÃÜ
+	 * @param content  ´ý½âÃÜÄÚÈÝ
+	 * @param password ½âÃÜÃÜÔ¿
+	 * @return
+	 */
+	public byte[] Decrypt(byte[] content, String password) {
+		try {
+			KeyGenerator kgen = KeyGenerator.getInstance("AES");
+			kgen.init(128, new SecureRandom(password.getBytes()));
+			SecretKey secretKey = kgen.generateKey();
+			byte[] enCodeFormat = secretKey.getEncoded();
+			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
+			Cipher cipher = Cipher.getInstance("AES");// ´´½¨ÃÜÂëÆ÷
+			cipher.init(Cipher.DECRYPT_MODE, key);// ³õÊ¼»¯
+			byte[] result = cipher.doFinal(content);
+			return result; // ¼ÓÃÜ
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			e.printStackTrace();
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		} catch (IllegalBlockSizeException e) {
+			e.printStackTrace();
+		} catch (BadPaddingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+}
