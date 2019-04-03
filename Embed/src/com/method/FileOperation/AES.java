@@ -1,4 +1,4 @@
-package com.method.FileOpreation;
+package com.method.FileOperation;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -12,14 +12,14 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-/*ÎÄ¼þ¼ÓÃÜ·½·¨Àà*/
+/*ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ï¿½*/
 public class AES {
 	
 	/** 
-	 * ¼ÓÃÜ 
+	 * ï¿½ï¿½ï¿½ï¿½ 
 	 *  
-	 * @param content ÐèÒª¼ÓÃÜµÄÄÚÈÝ 
-	 * @param password  ¼ÓÃÜÃÜÂë 
+	 * @param content ï¿½ï¿½Òªï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ 
+	 * @param password  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	 * @return 
 	 */  
 	public byte[] Encrypt(byte[] byteContent, String password) {  
@@ -29,10 +29,10 @@ public class AES {
 	                SecretKey secretKey = kgen.generateKey();  
 	                byte[] enCodeFormat = secretKey.getEncoded();  
 	                SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");  
-	                Cipher cipher = Cipher.getInstance("AES");// ´´½¨ÃÜÂëÆ÷   
-	                cipher.init(Cipher.ENCRYPT_MODE, key);// ³õÊ¼»¯  
+	                Cipher cipher = Cipher.getInstance("AES");// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
+	                cipher.init(Cipher.ENCRYPT_MODE, key);// ï¿½ï¿½Ê¼ï¿½ï¿½  
 	                byte[] result = cipher.doFinal(byteContent);  
-	                return result; // ¼ÓÃÜ  
+	                return result; // ï¿½ï¿½ï¿½ï¿½  
 	        } catch (NoSuchAlgorithmException e) {  
 	                e.printStackTrace();  
 	        } catch (NoSuchPaddingException e) {  
@@ -48,9 +48,9 @@ public class AES {
 	}  
 	
 	
-	/**½âÃÜ 
-	 * @param content  ´ý½âÃÜÄÚÈÝ 
-	 * @param password ½âÃÜÃÜÔ¿ 
+	/**ï¿½ï¿½ï¿½ï¿½ 
+	 * @param content  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	 * @param password ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ 
 	 * @return 
 	 */  
 	public byte[] Decrypt(byte[] content, String password) {  
@@ -60,10 +60,10 @@ public class AES {
 	                 SecretKey secretKey = kgen.generateKey();  
 	                 byte[] enCodeFormat = secretKey.getEncoded();  
 	                 SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");              
-	                 Cipher cipher = Cipher.getInstance("AES");// ´´½¨ÃÜÂëÆ÷  
-	                cipher.init(Cipher.DECRYPT_MODE, key);// ³õÊ¼»¯  
+	                 Cipher cipher = Cipher.getInstance("AES");// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+	                cipher.init(Cipher.DECRYPT_MODE, key);// ï¿½ï¿½Ê¼ï¿½ï¿½  
 	                byte[] result = cipher.doFinal(content);  
-	                return result; // ¼ÓÃÜ  
+	                return result; // ï¿½ï¿½ï¿½ï¿½  
 	        } catch (NoSuchAlgorithmException e) {  
 	                e.printStackTrace();  
 	        } catch (NoSuchPaddingException e) {  

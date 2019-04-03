@@ -5,7 +5,7 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-import com.method.PictureOpreation.WritePicture;
+import com.method.PictureOperation.WritePicture;
 
 /*文件的嵌入阶段类*/
 public class EmbedProcess {

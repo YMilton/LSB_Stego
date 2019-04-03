@@ -1,4 +1,4 @@
-package com.method.FileOpreation;
+package com.method.FileOperation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/*ÎÄ¼þ¶ÁÈ¡·½·¨Àà*/
+/*ï¿½Ä¼ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 public class ReadFile {
 	
 	private int[] binarylist;
@@ -14,20 +14,20 @@ public class ReadFile {
 	public ReadFile(String filePath,String password){
 		AES aes = new AES();
 		
-        byte[] filebytes = toByteArray(filePath);//µ÷ÓÃReadFileÀàµÄtoByteArray·½·¨µÃµ½byteÀàÐÍÊý×é
+        byte[] filebytes = toByteArray(filePath);//ï¿½ï¿½ï¿½ï¿½ReadFileï¿½ï¿½ï¿½toByteArrayï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½byteï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
-		byte[] encryptarr= aes.Encrypt(filebytes, password);//¶ÔÒÔbyteÐÎÊ½¶ÁÈ¡µÄÎÄ¼þ½øÐÐDES¼ÓÃÜ
+		byte[] encryptarr= aes.Encrypt(filebytes, password);//ï¿½ï¿½ï¿½ï¿½byteï¿½ï¿½Ê½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½DESï¿½ï¿½ï¿½ï¿½
 				
-		//ÎÄ¼þ¶þ½øÖÆÁ÷µÄ»ñµÃ
+		//ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½
 	    int[] binaryfilelist = getFileBinary(encryptarr);
 
-	   //ÎÄ¼þÊý×é³¤¶È¶þ½øÖÆÁ÷µÄ»ñµÃ
+	   //ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½é³¤ï¿½È¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½
 	   int[] binarylengthlist  = getLengthBinary(binaryfilelist.length);
 	  
-	   //ÎÄ¼þºó×ºÃû¶þ½øÖÆÁ÷µÄ»ñµÃ
+	   //ï¿½Ä¼ï¿½ï¿½ï¿½×ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½
 	   int[] binaryextensionslist = getExtensionsBinary(filePath);	
 	   
-	   //µÃµ½×îÖÕµÄ¶þ½øÖÆÊý×éÁ´
+	   //ï¿½Ãµï¿½ï¿½ï¿½ï¿½ÕµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	   this.binarylist = convergeBinaryList(binarylengthlist, binaryextensionslist, binaryfilelist);
 	   				
 	}
@@ -37,7 +37,7 @@ public class ReadFile {
 	}
 	
 	
-	public byte[] toByteArray(String filePath){//¶ÁÈ¡ÎÄ¼þµÃµ½byteÊý×é
+	public byte[] toByteArray(String filePath){//ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½Ãµï¿½byteï¿½ï¿½ï¿½ï¿½
 		byte[] buffer = null;  
 		try{
 			File file = new File(filePath);  
@@ -60,36 +60,36 @@ public class ReadFile {
 	}
 	
 	
-	public int[] InttoBinary(int num){//×ª»»³É8Î»¶þ½øÖÆÊý£¬ÓÃÒÔ¶ÔÃ¿¸öÏñËØµÄ×ª»¯
+	public int[] InttoBinary(int num){//×ªï¿½ï¿½ï¿½ï¿½8Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½×ªï¿½ï¿½
 		int[] binary_arr=new int[8];
 		for(int i=0; i<8; i++){
-			binary_arr[i]=1&(num>>(7-i));//Ã¿ÓÒÒÆÒ»Î»½øÐÐºÍ1 ÏàÓë
+			binary_arr[i]=1&(num>>(7-i));//Ã¿ï¿½ï¿½ï¿½ï¿½Ò»Î»ï¿½ï¿½ï¿½Ðºï¿½1 ï¿½ï¿½ï¿½ï¿½
 		}
 		return binary_arr;
 	}
 	
-	public int[] getLengthBinary(int num){//×ª»»³É32Î»µÄ¶þ½øÖÆÊý£¬ÓÃÓÚ¼ÇÂ¼¶ÁÈ¡ÎÄ¼þµÄbyteÊý×éµÄ³¤¶È
+	public int[] getLengthBinary(int num){//×ªï¿½ï¿½ï¿½ï¿½32Î»ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½Â¼ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½byteï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
 		int[] binary_arr=new int[32];
 		for(int i=0; i<32; i++){
-			binary_arr[i]=1&(num>>(31-i));//Ã¿ÓÒÒÆÒ»Î»½øÐÐºÍ1 ÏàÓë
+			binary_arr[i]=1&(num>>(31-i));//Ã¿ï¿½ï¿½ï¿½ï¿½Ò»Î»ï¿½ï¿½ï¿½Ðºï¿½1 ï¿½ï¿½ï¿½ï¿½
 		}
 		return binary_arr;
 	}
 	
-	/*»ñµÃÎÄ¼þºó×ºÃûµÄ¶þ½øÖÆÁ´µÄ·½·¨*/
+	/*ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½×ºï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½*/
 	public int[] getExtensionsBinary(String filePath){
 		int[] binaryextensionslist = new int[80];
 		
 		File file = new File(filePath);
 		
-		String extensions = file.getName().substring(file.getName().lastIndexOf(".")+1);//»ñµÃÎÄ¼þºó×ºÃû
+		String extensions = file.getName().substring(file.getName().lastIndexOf(".")+1);//ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½×ºï¿½ï¿½
 		
-		int num = extensions.toCharArray().length;//ºó×ºÃû×Ö·û³¤¶È
+		int num = extensions.toCharArray().length;//ï¿½ï¿½×ºï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		byte[] arrbyte = new byte[num];
 		
 		for(int i=0; i<num; i++){
-			arrbyte[i] = (byte)extensions.toCharArray()[i];//ºó×ºÃûÇ¿ÖÆ×ª»»³Ébyte
+			arrbyte[i] = (byte)extensions.toCharArray()[i];//ï¿½ï¿½×ºï¿½ï¿½Ç¿ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½byte
 		}
 		
 		for(int i=0; i<arrbyte.length; i++){
@@ -102,8 +102,8 @@ public class ReadFile {
 		return binaryextensionslist;
 	}
 	
-	/*»ñµÃÎÄ¼þµÄ¶þ½øÖÆÁ´µÄ·½·¨*/
-	public int[] getFileBinary(byte[] arrbyte){//arrbyteÊÇbyteµÄÒ»Î¬Êý×é
+	/*ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½*/
+	public int[] getFileBinary(byte[] arrbyte){//arrbyteï¿½ï¿½byteï¿½ï¿½Ò»Î¬ï¿½ï¿½ï¿½ï¿½
 		
 		int[] binaryfileList=new int[arrbyte.length*8];
 		
@@ -119,18 +119,18 @@ public class ReadFile {
 		return binaryfileList;
 	}
 	
-	//Ìí¼ÓÎÄ¼þÊý×é³¤¶Èµ½¶þ½øÖÆÁ÷Êý×é£¬°ÑÎÄ¼þÊý×é³¤¶ÈÌí¼ÓÔÚ×îÖÕ¶þ½øÖÆÊý×ÖµÄÇ°32Î»
+	//ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½é³¤ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½é³¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ç°32Î»
 	public int[] convergeBinaryList(int[] binarylengthlist, int[] binaryextensionslist, int[] binaryfilelist){
 		int[] binarylist = new int[binaryfilelist.length+32+80];
 		
 		for(int i=0; i<binarylist.length; i++){
-			if(i<32){//×°ÎÄ¼þÊý×é³¤¶ÈÖµ
+			if(i<32){//×°ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½é³¤ï¿½ï¿½Öµ
 				binarylist[i] = binarylengthlist[i];
 			}
-			if(i>=32 && i<112){//×°ÎÄ¼þºó×ºÃû¶þ½øÖÆÁ÷
+			if(i>=32 && i<112){//×°ï¿½Ä¼ï¿½ï¿½ï¿½×ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				binarylist[i]=binaryextensionslist[i-32];
 			}
-			if(i>=112){//×°ÎÄ¼þ¶þ½øÖÆÁ÷
+			if(i>=112){//×°ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				binarylist[i]=binaryfilelist[i-112];
 			}
 								

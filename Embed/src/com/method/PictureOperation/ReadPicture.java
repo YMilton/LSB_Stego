@@ -1,4 +1,4 @@
-package com.method.PictureOpreation;
+package com.method.PictureOperation;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;

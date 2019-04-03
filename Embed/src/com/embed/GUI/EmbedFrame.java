@@ -1,173 +1,220 @@
 package com.embed.GUI;
 
-import java.awt.Color;
+import com.embed.Process.EmbedProcess;
+import com.method.FileOperation.ReadFile;
+import com.method.PictureOperation.ReadPicture;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
-import com.embed.Process.EmbedProcess;
-import com.method.FileOpreation.ReadFile;
-import com.method.PictureOpreation.ReadPicture;
 
 public class EmbedFrame extends MyFrame {
-	
-	private static final long serialVersionUID = 1L;
-	
-	private String pictureDirectory,picturePath,filePath,Key;
 
-	private ChImageFrame cf1;
-	private ChFileFrame cf2;
+    private static final long serialVersionUID = 1L;
 
-	public EmbedFrame(){
-		
-		jb1.addMouseListener(new MouseListener(){
+    private String pictureDirectory, picturePath, filePath, Key;
 
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				cf1 = new ChImageFrame("Í¼ÏñÎÄ¼şÑ¡Ôñ´°¿Ú");
-				picturePath = cf1.getFilePath();
-				pictureDirectory = cf1.getFileDirectory();
-				if(picturePath!=null){
-					jtf1.setText(picturePath);
-				}
-			}
+    private ChImageFrame cf1;
 
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				jb1.setForeground(Color.ORANGE);
-			}
+    private ChFileFrame cf2;
 
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				jb1.setForeground(Color.BLACK);
-			}
+    public EmbedFrame() {
 
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub			
-			}
+        jb1.addMouseListener(new MouseListener() {
 
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-			}
-			
-		});
-				
-		jb2.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
 
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				cf2 = new ChFileFrame("ÃØÃÜÎÄ¼şÑ¡Ôñ´°¿Ú");
-				filePath = cf2.getFilePath();
-				if(filePath!=null){
-					jtf2.setText(filePath);
-				}
-			}
+                cf1 = new ChImageFrame("å›¾åƒæ–‡ä»¶é€‰æ‹©çª—å£");
 
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				jb2.setForeground(Color.ORANGE);
-			}
+                picturePath = cf1.getFilePath();
 
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				jb2.setForeground(Color.BLACK);
-			}
+                pictureDirectory = cf1.getFileDirectory();
 
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub			
-			}
+                if (picturePath != null) {
 
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-			}
-			
-		});
-		
-		jbok.addActionListener(new ActionListener(){
-			@SuppressWarnings("deprecation")
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if(picturePath==null || filePath==null){
-					JOptionPane.showMessageDialog(null, "Â·¾¶Îª¿Õ£¬ÇëÑ¡ÔñÂ·¾¶£¡");
-				}
-				else if(jpf1.getText().length()==0){
-					JOptionPane.showMessageDialog(null, "ÃÜÂëÎª¿Õ£¬ÇëÊäÈëÃÜÂë£¡");
-				}else if(jpf2.getText().length()==0){
-					JOptionPane.showMessageDialog(null, "ÇëÔÙ´ÎÊäÈëÃÜÂë£¡");
-				}else if(!jpf1.getText().equals(jpf2.getText())){
-					JOptionPane.showMessageDialog(null, "Á½´ÎÃÜÂë²»Ò»ÖÂ£¬ÇëÖØĞÂÊäÈë£¡");
-					jpf1.setText("");
-					jpf2.setText("");
-				}else{//¼ÓÃÜ½×¶Î
-					Key = jpf1.getText();//AES¼ÓÃÜÃÜÂë
-					
-					//filePath  //picturePath 	//pictureDirectory					
-				    
-				    ReadPicture readpicture=new ReadPicture(picturePath,filePath);
-				    
-				    int alistlength = readpicture.getHeight()*readpicture.getWidth();
-						
-					ReadFile readfile=new ReadFile(filePath,Key);
-						
-					if(readfile.getBinarylist().length >= (readpicture.getPicturelist().length - alistlength)){//ÅĞ¶Ï¼ÓÃÜÎÄ¼ş¶ş½øÖÆÁ÷ÊÇ·ñ¿ÉÒÔÇ¶ÈëÍ¼Æ¬ÄÚ£¬alistlengthÊÇalphÍ¨µÀÊı×é³¤¶È
-						
-						JOptionPane.showMessageDialog(null, "ÎÄ¼ş¹ı´ó²»ÄÜÇ¶Èë£¬ÇëÑ¡ÔñÏñËØ¸ü´óµÄÍ¼Æ¬£¡");
-						
-						jtf1.setText("ÇëÑ¡ÔñÔØÃÜÍ¼ÏñµÄÂ·¾¶......");
-						jtf2.setText("ÇëÑ¡ÔñÃØÃÜÎÄ¼şµÄÂ·¾¶......");
-						
-						jpf1.setText("");
-						jpf2.setText("");
-						
-					}else{
-						int[] binarylist = readfile.getBinarylist();//ÎÄ¼ş×îÖÕµÄ¶ş½øÖÆÁ÷Êı×éÁ´
-						
-						int[] picturelist = readpicture.getPicturelist();//Í¼Æ¬Êı×éÁ´»ñµÃ
-						
-						int picture_height = readpicture.getHeight();//Í¼Æ¬¸ß¶È
-						
-						int picture_width = readpicture.getWidth();//Í¼Æ¬¿í¶È
-						
-						String extensions = readpicture.getExtensions();//ÎÄ¼şºó×ºÃû
-						
-						try {
-							new EmbedProcess(binarylist,picturelist,picture_height,picture_width,extensions,pictureDirectory);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}					
-				}
-			}
-			
-		});
-		
-		this.setTitle("ÎÄ¼şÇ¶Èë");
-		
-	}
-	
-	public String getPictureDirectory() {
-		return pictureDirectory;
-	}
+                    jtf1.setText(picturePath);
 
-	public String getPicturePath() {
-		return picturePath;
-	}
+                }
 
-	public String getFilePath() {
-		return filePath;
-	}
+            }
 
-	public String getKey() {
-		return Key;
-	}
+
+            @Override
+            public void mouseEntered(MouseEvent arg0) {
+                jb1.setForeground(Color.ORANGE);
+            }
+
+
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+                jb1.setForeground(Color.BLACK);
+            }
+
+
+            @Override
+            public void mousePressed(MouseEvent arg0) {
+                // TODO Auto-generated method stub
+            }
+
+
+            @Override
+            public void mouseReleased(MouseEvent arg0) {
+                // TODO Auto-generated method stub
+            }
+
+        });
+
+
+        jb2.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+
+                cf2 = new ChFileFrame("ç§˜å¯†æ–‡ä»¶é€‰æ‹©çª—å£");
+
+                filePath = cf2.getFilePath();
+
+                if (filePath != null) {
+
+                    jtf2.setText(filePath);
+
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent arg0) {
+                jb2.setForeground(Color.ORANGE);
+            }
+
+
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+                jb2.setForeground(Color.BLACK);
+            }
+
+
+            @Override
+            public void mousePressed(MouseEvent arg0) {
+                // TODO Auto-generated method stub
+            }
+
+
+            @Override
+            public void mouseReleased(MouseEvent arg0) {
+                // TODO Auto-generated method stub
+            }
+
+        });
+
+
+        jbok.addActionListener(new ActionListener() {
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+
+                if (picturePath == null || filePath == null) {
+
+                    JOptionPane.showMessageDialog(null, "è·¯å¾„ä¸ºç©ºï¼Œè¯·é€‰æ‹©è·¯å¾„ï¼");
+
+                } else if (jpf1.getText().length() == 0) {
+
+                    JOptionPane.showMessageDialog(null, "å¯†ç ä¸ºç©ºï¼Œè¯·è¾“å…¥å¯†ç ï¼");
+
+                } else if (jpf2.getText().length() == 0) {
+
+                    JOptionPane.showMessageDialog(null, "è¯·å†æ¬¡è¾“å…¥å¯†ç ï¼");
+
+                } else if (!jpf1.getText().equals(jpf2.getText())) {
+
+                    JOptionPane.showMessageDialog(null, "ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´ï¼Œè¯·é‡æ–°è¾“å…¥ï¼");
+
+                    jpf1.setText("");
+
+                    jpf2.setText("");
+
+                } else {//åŠ å¯†é˜¶æ®µ
+
+                    Key = jpf1.getText();//AESåŠ å¯†å¯†ç 
+
+
+                    //filePath  //picturePath 	//pictureDirectory
+
+                    ReadPicture readpicture = new ReadPicture(picturePath, filePath);
+
+                    int alistlength = readpicture.getHeight() * readpicture.getWidth();
+
+                    ReadFile readfile = new ReadFile(filePath, Key);
+
+                    if (readfile.getBinarylist().length >= (readpicture.getPicturelist().length - alistlength)) {//åˆ¤æ–­åŠ å¯†æ–‡ä»¶äºŒè¿›åˆ¶æµæ˜¯å¦å¯ä»¥åµŒå…¥å›¾ç‰‡å†…ï¼Œalistlengthæ˜¯alphé€šé“æ•°ç»„é•¿åº¦
+
+                        JOptionPane.showMessageDialog(null, "æ–‡ä»¶è¿‡å¤§ä¸èƒ½åµŒå…¥ï¼Œè¯·é€‰æ‹©åƒç´ æ›´å¤§çš„å›¾ç‰‡ï¼");
+
+                        jtf1.setText("è¯·é€‰æ‹©è½½å¯†å›¾åƒçš„è·¯å¾„......");
+
+                        jtf2.setText("è¯·é€‰æ‹©ç§˜å¯†æ–‡ä»¶çš„è·¯å¾„......");
+
+                        jpf1.setText("");
+
+                        jpf2.setText("");
+
+                    } else {
+
+                        int[] binarylist = readfile.getBinarylist();//æ–‡ä»¶æœ€ç»ˆçš„äºŒè¿›åˆ¶æµæ•°ç»„é“¾
+
+                        int[] picturelist = readpicture.getPicturelist();//å›¾ç‰‡æ•°ç»„é“¾è·å¾—
+
+                        int picture_height = readpicture.getHeight();//å›¾ç‰‡é«˜åº¦
+
+                        int picture_width = readpicture.getWidth();//å›¾ç‰‡å®½åº¦
+
+                        String extensions = readpicture.getExtensions();//æ–‡ä»¶åç¼€å
+
+                        try {
+
+                            new EmbedProcess(binarylist, picturelist, picture_height, picture_width, extensions, pictureDirectory);
+
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+        this.setTitle("æ–‡ä»¶åµŒå…¥");
+
+    }
+
+
+    public String getPictureDirectory() {
+        return pictureDirectory;
+    }
+
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+
+    public String getKey() {
+        return Key;
+    }
 
 }
